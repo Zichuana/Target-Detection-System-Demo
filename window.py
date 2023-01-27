@@ -29,7 +29,6 @@ ROOT = Path(os.path.relpath(ROOT, Path.cwd()))  # relative
 
 # 窗口主类
 class MainWindow(QTabWidget):
-    # 基本配置不动，然后只动第三个界面
     def __init__(self):
         # 初始化界面
         super().__init__()
@@ -40,7 +39,7 @@ class MainWindow(QTabWidget):
         self.output_size = 480
         self.img2predict = ""
         self.device = 'cpu'
-        # # 初始化视频读取线程
+        # 初始化视频读取线程
         self.vid_source = '0'  # 初始设置为摄像头
         self.stopEvent = threading.Event()
         self.webcam = True
@@ -78,7 +77,7 @@ class MainWindow(QTabWidget):
         # 图片检测子界面
         font_title = QFont('楷体', 16)
         font_main = QFont('楷体', 14)
-        # 图片识别界面, 两个按钮，上传图片和显示结果
+        # 图片识别界面
         img_detection_widget = QWidget()
         img_detection_layout = QVBoxLayout()
         img_detection_title = QLabel("图片检测功能")
@@ -180,7 +179,7 @@ class MainWindow(QTabWidget):
             suffix = fileName.split(".")[-1]
             save_path = osp.join("images/tmp", "tmp_upload." + suffix)
             shutil.copy(fileName, save_path)
-            # 应该调整一下图片的大小，然后统一防在一起
+            # 调整图片的大小
             im0 = cv2.imread(save_path)
             resize_scale = self.output_size / im0.shape[0]
             im0 = cv2.resize(im0, (0, 0), fx=resize_scale, fy=resize_scale)
@@ -310,8 +309,6 @@ class MainWindow(QTabWidget):
                     # ubuntu下会出问题
                     self.right_img.setPixmap(QPixmap("images/tmp/single_result.jpg"))
 
-    # 视频检测，逻辑基本一致，有两个功能，分别是检测摄像头的功能和检测视频文件的功能，先做检测摄像头的功能。
-
     '''
     ### 界面关闭事件 ### 
     '''
@@ -361,7 +358,7 @@ class MainWindow(QTabWidget):
     ### 视频开启事件 ### 
     '''
 
-    # 视频和摄像头的主函数是一样的，不过是传入的source不同罢了
+    # 视频和摄像头的主函数是一样的，传入的source不同
     def detect_vid(self):
         # pass
         model = self.model
