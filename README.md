@@ -1,4 +1,5 @@
 ### 备份一个自用模板:sneezing_face:
+我很喜欢，但源码不在github上不能fork:(
 **环境**  
 python==3.8.5  
 pip install -r requirements.txt  
